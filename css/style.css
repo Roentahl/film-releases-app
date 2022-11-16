@@ -1,3 +1,63 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  --bg-color: #fff;
+}
+
+.site {
+  height: 100%;
+  font-family: 'Gerbera', sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.site__body {
+  margin: 0;
+  min-width: 375px;
+  min-height: 100%;
+  font-size: 16px;
+  background-color: var(--bg-color);
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: 'Gerbera';
+  src: url('../fonts/Gerbera.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gerbera';
+  src: url('../fonts/Gerbera-Bold.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .container {
   margin: 0 auto;
   padding: 0 15px;
