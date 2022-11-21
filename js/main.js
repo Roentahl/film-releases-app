@@ -65,7 +65,42 @@ const initApp = (page) => {
         `);
       });
     };
-  });
+
+    return data;
+  })
+  .then((data) => {
+    console.log(data);
+    for (release of data.releases) {
+      const rating = release.rating ? release.rating.toFixed(1) : 'Недостаточно голосов';
+      const genres = release.genres.map(genre => Object.values(genre)[0]).toString().replace(/,/g, ', ');
+      const duration = `${release.duration} ${seclOfNum(release.duration, ['минута', 'минуты', 'минут'])}`;
+      const dateOptions = {
+        month: 'long',
+        day: 'numeric',
+      };
+      const date = new Date(release.releaseDate).toLocaleDateString('ru-Ru', dateOptions);
+      console.log(date)
+
+      appList.insertAdjacentHTML('beforeend', `
+        <li class="app__list-item">
+          <article class="app__card film-card">
+            <a href="https://kinopoisk.ru/film/${release.filmId}" target="_blank" class="film-card__link">
+              <div class="film-card__img-wrap">
+                <img src="${release.posterUrlPreview}" alt="${release.nameRu ? release.nameRu : release.nameEn}" loading="lazy" class="film-card__img">
+                <div class="film-card__details">
+                  <div class="film-card__rating ${release.rating == null ? 'film-card__rating--null' : ''}">${rating}</div>
+                  <div class="film-card__genres">${genres}</div>
+                  <div class="film-card__duration ${release.duration == 0 ? 'film-card__duration--hidden' : ''}">${duration}</div>
+                </div>
+              </div>
+              <h2 class="film-card__title">${release.nameRu ? release.nameRu : release.nameEn}</h2>
+              <div class="film-card__release-date">${date}</div>
+            </a>
+          </article>
+        </li>
+      `);
+    }
+  })
 
 
 };

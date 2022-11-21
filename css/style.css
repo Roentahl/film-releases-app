@@ -158,8 +158,16 @@ a {
   color: var(--accent-color);
 }
 
+.film-card__rating--null {
+  font-size: 20px;
+}
+
 .film-card__duration {
   margin-top: 5px;
+}
+
+.film-card__duration--hidden {
+  display: none;
 }
 
 .film-card__link:focus-visible .film-card__details {
