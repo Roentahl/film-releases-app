@@ -14,6 +14,7 @@ html {
   --accent-color: #fe651f;
   --second-text-color: #a5a1b2;
   --third-text-color: #fff;
+  --error-color: #ea003d;
 }
 
 .site {
@@ -23,6 +24,7 @@ html {
 }
 
 .site__body {
+  position: relative;
   margin: 0;
   min-width: 375px;
   min-height: 100%;
@@ -72,11 +74,98 @@ a {
   padding: 50px 0;
 }
 
+/* .app__container {
+  position: relative;
+} */
+
 .app__title {
   margin: 0;
   margin-bottom: 60px;
   font-size: 50px;
   color: var(--text-color);
+}
+
+.app__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.loader {
+  width: 7em;
+  height: 7em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.loader__block {
+  width: calc(100% / 3 - 3px);
+  height: calc(100% / 3 - 3px);
+  background-color: var(--accent-color);
+}
+
+#first {
+  animation: loading 3s ease-in-out .2s infinite normal none;
+}
+
+#second {
+  animation: loading 3s ease-in-out .5s infinite normal none;
+}
+
+#third {
+  animation: loading 3s ease-in-out .3s infinite normal none;
+}
+
+#fourth {
+  animation: loading 3s ease-in-out .7s infinite normal none;
+}
+
+#fifth {
+  animation: loading 3s ease-in-out .8s infinite normal none;
+}
+
+#sixth {
+  animation: loading 3s ease-in-out .4s infinite normal none;
+}
+
+#seventh {
+  animation: loading 3s ease-in-out .9s infinite normal none;
+}
+
+#eighth {
+  animation: loading 3s ease-in-out .6s infinite normal none;
+}
+
+#ninth {
+  animation: loading 3s ease-in-out .1s infinite normal none;
+}
+
+@keyframes loading {
+  from {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.app__error {
+  display: none;
+  font-size: 20px;
+  color: var(--error-color);
 }
 
 .app__pagination {

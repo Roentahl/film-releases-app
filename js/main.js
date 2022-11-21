@@ -28,6 +28,8 @@ const appList = document.querySelector('.app__list');
 const spanMonth = document.querySelector('.month');
 const spanYear = document.querySelector('.year');
 const paginations = document.querySelectorAll('.app__pagination');
+const errorEl = document.querySelector('.app__error');
+const loaderEl = document.querySelector('.app__loader');
 
 // declension of numbers
 const seclOfNum = (number, titles) => {
@@ -50,8 +52,19 @@ const initApp = (page) => {
       "X-API-KEY": API_KEY,
     }
   })
-  .then((response) => response.json())
+  .then((response) => {
+    if (response.status === 404) {
+      throw Error('По данному запросу ничего не найдено :(');
+    } else if (response.status === 500) {
+      throw Error('Произошла ошибка, пожалуйста, попробуйте обновить страницу позже');
+    };
+
+    return response.json();
+  })
   .then((data) => {
+    errorEl.style.display = 'none';
+    loaderEl.style.display = 'none';
+
     //get num of pages for pagination
     const total = data.total;
     const pages = Math.ceil(total / 10);
@@ -69,7 +82,6 @@ const initApp = (page) => {
     return data;
   })
   .then((data) => {
-    console.log(data);
     for (release of data.releases) {
       const rating = release.rating ? release.rating.toFixed(1) : 'Недостаточно голосов';
       const genres = release.genres.map(genre => Object.values(genre)[0]).toString().replace(/,/g, ', ');
@@ -79,7 +91,6 @@ const initApp = (page) => {
         day: 'numeric',
       };
       const date = new Date(release.releaseDate).toLocaleDateString('ru-Ru', dateOptions);
-      console.log(date)
 
       appList.insertAdjacentHTML('beforeend', `
         <li class="app__list-item">
@@ -100,6 +111,16 @@ const initApp = (page) => {
         </li>
       `);
     }
+  })
+  .catch((err) => {
+    console.log(err.name)
+    if (err.name === 'TypeError') {
+      errorEl.textContent = 'Введен неверный адрес';
+    } else {
+      errorEl.textContent = err.message;
+    }
+    errorEl.style.display = 'block';
+    loaderEl.style.display = 'none';
   })
 
 
